@@ -1,0 +1,15 @@
+{
+  "name": "ian",
+  "version": "1.0.0",
+  "description": "Messenger webhook",
+  "main": "index.js",
+  "dependencies": {
+    "facebook-chat-api": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
