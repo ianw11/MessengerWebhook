@@ -9,6 +9,10 @@ var path = "/messengerWebhook";
 
 var username = "saltyserrano@gmail.com";
 
+var SENDER_ID_LOOKUP = {
+    "750709684": "Ian Washburne"
+};
+
 function post(body) {
     var options = {
         host: host,
@@ -32,6 +36,24 @@ function post(body) {
     req.end();
 };
 
+function process(json) {
+    var senderId = json.senderID;
+    var senderName = SENDER_ID_LOOKUP[senderId];
+    if (senderName === undefined) {
+        senderName = "UNKNOWN NAME";
+    }
+
+    if (json.body.startsWith("/roll")) {
+        api.sendMessage("Roll request");
+    }
+
+    console.log("Processing name: " + senderName + " (" + senderId + ")");
+
+    return {
+        name: senderName
+    };
+};
+
 login({email: username, password: password}, function (err, api) {
     if (err) {
         console.error(err);
@@ -52,6 +74,8 @@ login({email: username, password: password}, function (err, api) {
 
         var body = JSON.stringify(message);
         console.log(body);
+
+        process(message);
 
         post(body);
     });
